@@ -64,6 +64,10 @@ foreach ($key in $groups.Keys) {
     $lines.Add("")
 }
 
+if ($lines.Count -gt 0 -and $lines[$lines.Count - 1] -eq "") {
+    $lines.RemoveAt($lines.Count - 1)
+}
+
 $outputPath = Join-Path $repositoryRoot "CHANGELOG.md"
 $lines | Set-Content -LiteralPath $outputPath -Encoding utf8
 Write-Host "CHANGELOG generated: $outputPath"
