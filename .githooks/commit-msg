@@ -10,7 +10,7 @@ case "$commit_message" in
     ;;
 esac
 
-pattern='^(feat|fix|docs|chore|refactor|test|ci|build)(\([a-z0-9._-]+\))?: .{5,72}$'
+pattern='^(feat|fix|docs|chore|refactor|test|ci|build)(\([a-z0-9._-]+\))?: [^[:space:]].{3,70}[^[:space:]]$'
 
 if ! printf '%s\n' "$commit_message" | grep -Eq "$pattern"; then
   printf '%s\n' "ERROR: invalid commit message."

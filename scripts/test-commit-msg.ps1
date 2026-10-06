@@ -32,8 +32,10 @@ if (-not $shell) {
 $cases = @(
     @{ Message = "docs(branching): explain review workflow"; Expected = 0 },
     @{ Message = "feat(changelog): generate history report"; Expected = 0 },
+    @{ Message = "docs: explain review workflow"; Expected = 0 },
     @{ Message = "fix"; Expected = 1 },
     @{ Message = "wip"; Expected = 1 },
+    @{ Message = "docs:      "; Expected = 1 },
     @{ Message = "Added files."; Expected = 1 }
 )
 
