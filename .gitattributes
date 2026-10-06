@@ -1,0 +1,5 @@
+# Git hooks must keep Unix line endings so Git for Windows can execute them.
+.githooks/* text eol=lf
+
+# Keep shell scripts portable across operating systems.
+*.sh text eol=lf

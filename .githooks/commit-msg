@@ -1,0 +1,23 @@
+#!/bin/sh
+
+commit_message_file="$1"
+commit_message="$(head -n 1 "$commit_message_file")"
+
+# Git creates these messages automatically; they are not user-authored commits.
+case "$commit_message" in
+  Merge\ *|Revert\ *|fixup!\ *|squash!\ *)
+    exit 0
+    ;;
+esac
+
+pattern='^(feat|fix|docs|chore|refactor|test|ci|build)(\([a-z0-9._-]+\))?: [^[:space:]].{3,70}[^[:space:]]$'
+
+if ! printf '%s\n' "$commit_message" | grep -Eq "$pattern"; then
+  printf '%s\n' "ERROR: invalid commit message."
+  printf '%s\n' "Expected: type(scope): short imperative description"
+  printf '%s\n' "Allowed types: feat, fix, docs, chore, refactor, test, ci, build"
+  printf '%s\n' "Example: docs(branching): explain review workflow"
+  exit 1
+fi
+
+exit 0
