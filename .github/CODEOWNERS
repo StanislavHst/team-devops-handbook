@@ -1,0 +1,23 @@
+# Default owners provide review coverage for every repository file.
+* @StanislavHst @Bishop-mstr @MaxfeedLeyn
+
+# Repository metadata and overview.
+/.github/ @StanislavHst @Bishop-mstr @MaxfeedLeyn
+/README.md @StanislavHst @Bishop-mstr
+
+# Handbook sections.
+/docs/branching.md @StanislavHst @MaxfeedLeyn
+/docs/editor-config.md @Bishop-mstr @StanislavHst
+/docs/conflict.md @Bishop-mstr @StanislavHst
+/docs/readme-template.md @MaxfeedLeyn @Bishop-mstr
+/docs/code-review.md @MaxfeedLeyn @Bishop-mstr
+
+# Shared configuration.
+/.editorconfig @Bishop-mstr @StanislavHst @MaxfeedLeyn
+/.gitignore @Bishop-mstr @StanislavHst
+
+# Automation and evidence.
+/.githooks/ @StanislavHst @MaxfeedLeyn
+/scripts/ @StanislavHst @MaxfeedLeyn
+/CHANGELOG.md @StanislavHst @MaxfeedLeyn
+/assets/ @StanislavHst @Bishop-mstr @MaxfeedLeyn
