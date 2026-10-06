@@ -6,8 +6,13 @@ This file is generated automatically from Git commit messages.
 
 - feat(changelog): validate commits and generate history report
 
+## Fixes
+
+- fix(changelog): avoid trailing blank line in generated file
+
 ## Documentation
 
+- docs(branching): add ruleset configuration evidence
 - docs(branching): define team git workflow
 
 ## Maintenance
