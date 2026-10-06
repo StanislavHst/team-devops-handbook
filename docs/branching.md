@@ -270,3 +270,45 @@ git log --format="%s" |
 ```
 
 Порожній результат означає, що таких повідомлень немає.
+
+## 11. Автоматична перевірка повідомлень
+
+Git не версіонує вміст `.git/hooks`, тому спільний hook зберігається у
+`.githooks/commit-msg`. Кожен учасник один раз виконує installer:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\install-hooks.ps1
+git config --get core.hooksPath
+```
+
+Очікуване значення:
+
+```text
+.githooks
+```
+
+Після цього `git commit` автоматично відхиляє повідомлення, які не відповідають
+формату з розділу 4. Hook не замінює review: він лише не дозволяє створити
+очевидно неправильно оформлений commit.
+
+Автоматичні тести hook:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\test-commit-msg.ps1
+```
+
+Тести перевіряють як дозволені, так і заборонені повідомлення без створення
+зайвих комітів у репозиторії.
+
+## 12. Автоматичне формування CHANGELOG
+
+Скрипт читає повідомлення з `git log`, розпізнає Conventional Commits і групує
+їх за типами:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\generate-changelog.ps1
+Get-Content .\CHANGELOG.md
+```
+
+`CHANGELOG.md` не редагується як незалежний список вручну: джерелом даних є
+реальна Git-історія. Після нового merged PR скрипт можна запустити повторно.
