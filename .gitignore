@@ -1,0 +1,7 @@
+.env
+
+*.tar.gz
+
+__pycache__/
+
+*.exe
