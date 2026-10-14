@@ -1,52 +1,40 @@
-# Захист лабораторної №2 — внесок Стаса
+# Лабораторна робота №2 — внесок Стаса
 
-## Короткий висновок
+## Результат роботи
 
-У цій лабораторній я налаштував захищений командний Git workflow: правила для `main`, розподіл відповідальності через `CODEOWNERS`, правила гілок і комітів, перевірку Pull Request, розв'язання конфлікту та локальний Git hook. Додатково реалізував автоматичне формування `CHANGELOG.md` з історії Git.
+Налаштовано командний Git workflow із захищеною гілкою `main`, розподілом відповідальності за файли, обов'язковим code review та контрольованим злиттям змін. Окремо реалізовано перевірку повідомлень комітів, практичне розв'язання конфлікту та автоматичне формування журналу змін.
 
-## 1. Захист `main` і відповідальність за файли
+## 1. Захист основної гілки
 
-**Показати:**
+Для `main` створено активний ruleset [`Protect main`](https://github.com/StanislavHst/team-devops-handbook/rules/24583555). Зміни до захищеної гілки проходять через Pull Request і перевірку учасниками команди.
 
-- [ruleset `Protect main`](https://github.com/StanislavHst/team-devops-handbook/rules/24583555);
-- [`.github/CODEOWNERS`](https://github.com/StanislavHst/team-devops-handbook/blob/main/.github/CODEOWNERS).
+Власники окремих частин репозиторію визначені у файлі [`.github/CODEOWNERS`](https://github.com/StanislavHst/team-devops-handbook/blob/main/.github/CODEOWNERS). Завдяки цьому GitHub автоматично призначає відповідального reviewer для змінених файлів.
 
-**Сказати:**
+## 2. Правила командної розробки
 
-> Для `main` я налаштував ruleset, тому зміни мають проходити через Pull Request і перевірку. У `CODEOWNERS` вказані відповідальні за різні частини репозиторію, щоб GitHub автоматично запитував потрібного reviewer.
+У документі [`docs/branching.md`](https://github.com/StanislavHst/team-devops-handbook/blob/main/docs/branching.md) зафіксовано:
 
-## 2. Правила командної роботи
+- створення окремої гілки для кожної задачі;
+- формат назв гілок `feature/ім'я-тема`;
+- використання Conventional Commits;
+- перевірку змін через Pull Request;
+- використання Squash and merge для чистої історії `main`.
 
-**Показати:** [документацію Git workflow](https://github.com/StanislavHst/team-devops-handbook/blob/main/docs/branching.md).
+## 3. Робота з Pull Request і code review
 
-**Сказати:**
+У [PR #3](https://github.com/StanislavHst/team-devops-handbook/pull/3) виконано роль автора змін. Під час review було знайдено проблему в перевірці пробілів. Зауваження виправлено окремим комітом, після чого зміни пройшли повторну перевірку.
 
-> Ми використовуємо окремі гілки у форматі `feature/ім'я-тема`, Conventional Commits і Pull Request для кожної завершеної зміни. Для злиття використовуємо Squash and merge, щоб одна задача залишала в `main` один зрозумілий коміт.
+У [PR #5](https://github.com/StanislavHst/team-devops-handbook/pull/5) виконано роль reviewer. Виявлено недостатнє пояснення параметрів у документації. Після виправлення автором оновлений варіант було перевірено та схвалено.
 
-## 3. Pull Request і code review
-
-**Показати:**
-
-- [PR #3 — моя зміна з виправленням після review](https://github.com/StanislavHst/team-devops-handbook/pull/3);
-- [PR #5 — перевірений мною PR іншого учасника](https://github.com/StanislavHst/team-devops-handbook/pull/5).
-
-**Сказати:**
-
-> У PR #3 я був автором. Reviewer знайшов реальну проблему у перевірці пробілів, після чого я виправив її окремим комітом. У PR #5 я був reviewer: залишив конкретне зауваження до документації, автор виправив його, і тільки після цього я схвалив зміни.
+Ці два PR демонструють повний цикл code review з обох сторін: отримання зауваження та перевірку чужої роботи.
 
 ## 4. Розв'язання конфлікту
 
-**Показати:**
+У [PR #8](https://github.com/StanislavHst/team-devops-handbook/pull/8) відтворено конфлікт у `.editorconfig`: дві незалежні гілки по-різному змінили один рядок.
 
-- [PR #8 — демонстрація конфлікту](https://github.com/StanislavHst/team-devops-handbook/pull/8);
-- [неправильний варіант після автоматичного вибору](https://github.com/StanislavHst/team-devops-handbook/commit/ca857a3c6d1f7271c4b1a1cc425155fce87f4350);
-- [виправлений варіант](https://github.com/StanislavHst/team-devops-handbook/commit/742321ef1565dcf2162978cc2fa0cd643daa2e21).
+Після автоматичного вибору однієї сторони утворився [синтаксично правильний, але логічно неправильний варіант](https://github.com/StanislavHst/team-devops-handbook/commit/ca857a3c6d1f7271c4b1a1cc425155fce87f4350). Значення було перевірено вручну та виправлено в [наступному коміті](https://github.com/StanislavHst/team-devops-handbook/commit/742321ef1565dcf2162978cc2fa0cd643daa2e21).
 
-**Сказати:**
-
-> Конфлікт виник у `.editorconfig`, тому що дві гілки по-різному змінювали той самий рядок. Спочатку я навмисно показав, що автоматичний вибір однієї сторони може дати синтаксично правильний, але логічно неправильний результат. Потім вручну перевірив значення, виправив його і повторно відправив зміни на review.
-
-**Команди для демонстрації:**
+Порівняння двох станів:
 
 ```powershell
 git show ca857a3:.editorconfig
@@ -54,18 +42,15 @@ git show 742321e:.editorconfig
 git diff ca857a3 742321e -- .editorconfig
 ```
 
-## 5. Git hook і чиста історія
+## 5. Контроль повідомлень комітів
 
-**Показати:**
+Git hook [`.githooks/commit-msg`](https://github.com/StanislavHst/team-devops-handbook/blob/main/.githooks/commit-msg) перевіряє повідомлення до створення коміту. Допускаються повідомлення у форматі Conventional Commits, наприклад:
 
-- [`.githooks/commit-msg`](https://github.com/StanislavHst/team-devops-handbook/blob/main/.githooks/commit-msg);
-- [`scripts/test-commit-msg.ps1`](https://github.com/StanislavHst/team-devops-handbook/blob/main/scripts/test-commit-msg.ps1).
+```text
+docs(branching): explain review workflow
+```
 
-**Сказати:**
-
-> Hook перевіряє повідомлення коміту до його створення та пропускає лише погоджений формат Conventional Commits. Шлях до hooks зберігається в конфігурації Git, а тестовий скрипт перевіряє як правильні, так і неправильні приклади повідомлень.
-
-**Команди для демонстрації:**
+Автоматичні позитивні та негативні перевірки hook реалізовано у [`scripts/test-commit-msg.ps1`](https://github.com/StanislavHst/team-devops-handbook/blob/main/scripts/test-commit-msg.ps1).
 
 ```powershell
 git config --get core.hooksPath
@@ -73,13 +58,9 @@ powershell -ExecutionPolicy Bypass -File .\scripts\test-commit-msg.ps1
 git log --oneline --graph --decorate -15
 ```
 
-## 6. Локальна папка та віддалений репозиторій
+## 6. Перевірка локального репозиторію
 
-**Сказати:**
-
-> Назва локальної папки не впливає на Git-репозиторій. Зв'язок із GitHub визначає remote `origin`, тому після перейменування я перевірив шлях, remote і можливість push.
-
-**Команди для демонстрації:**
+Локальну папку проєкту перейменовано без зміни історії та зв'язку з GitHub. Віддалений репозиторій продовжує визначатися параметром `origin`.
 
 ```powershell
 Get-Location
@@ -89,16 +70,10 @@ git push --dry-run
 
 ## 7. Додаткове завдання
 
-**Показати:**
+Реалізовано [`scripts/generate-changelog.ps1`](https://github.com/StanislavHst/team-devops-handbook/blob/main/scripts/generate-changelog.ps1), який формує [`CHANGELOG.md`](https://github.com/StanislavHst/team-devops-handbook/blob/main/CHANGELOG.md) на основі історії Git і групує Conventional Commits за типами.
 
-- [`scripts/generate-changelog.ps1`](https://github.com/StanislavHst/team-devops-handbook/blob/main/scripts/generate-changelog.ps1);
-- [`CHANGELOG.md`](https://github.com/StanislavHst/team-devops-handbook/blob/main/CHANGELOG.md);
-- [PR #9 — актуалізація згенерованого changelog](https://github.com/StanislavHst/team-devops-handbook/pull/9).
+Оновлення згенерованого журналу змін оформлено окремим [PR #9](https://github.com/StanislavHst/team-devops-handbook/pull/9), тому результат можна перевірити так само, як інші командні зміни.
 
-**Сказати:**
+## Висновок
 
-> Як додаткове завдання я автоматизував формування `CHANGELOG.md`. Скрипт читає історію Git, групує Conventional Commits за типами та створює однаковий відтворюваний результат без ручного копіювання записів.
-
-## Фінальна фраза
-
-> У результаті я не просто додав окремі файли, а побудував перевірюваний командний процес: захищений `main`, відповідальні власники коду, робота через Pull Request, обов'язковий review, контроль формату комітів, практика розв'язання конфлікту та автоматичний changelog.
+У результаті створено перевірюваний командний процес: захищений `main`, визначені власники коду, робота через окремі гілки та Pull Request, обов'язковий review, контроль формату комітів, ручне розв'язання конфліктів і автоматичне ведення журналу змін.
