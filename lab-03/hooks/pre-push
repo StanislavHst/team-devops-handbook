@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# pre-push: run the test suite; a failing test aborts the push.
+set -euo pipefail
+
+cd "$(git rev-parse --show-toplevel)"
+
+TEST_DIR="${LAB_TESTS_DIR:-lab-03/tests}"
+if [[ ! -d "$TEST_DIR" ]]; then
+    echo "pre-push: test directory '$TEST_DIR' not found" >&2
+    exit 2
+fi
+command -v pytest >/dev/null 2>&1 || { echo "pre-push: pytest is not installed (pip install pytest)" >&2; exit 2; }
+
+echo "pre-push: running tests in $TEST_DIR ..."
+if ! pytest "$TEST_DIR" -q; then
+    echo "pre-push: tests failed - push aborted." >&2
+    exit 1
+fi
+echo "pre-push: tests passed"
